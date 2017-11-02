@@ -6,7 +6,8 @@ const root = path.resolve(__dirname, '..')
 module.exports = {
     context: root,
     entry: {
-        index: './src/index.js'
+        state: './src/examples/state/index.js',
+        getter: './src/examples/getter/index.js'
     },
     output: {
         path: path.join(root, 'dist'),
@@ -47,9 +48,16 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            filename: path.join(root, 'dist/index.html'),
-            template: path.join(root, 'src/index.html'),
-            inject: 'body'
+            filename: path.join(root, 'dist/state.html'),
+            template: path.join(root, 'src/examples/state/index.html'),
+            inject: 'body',
+            chunks: ['state']
+        }),
+        new HtmlWebpackPlugin({
+            filename: path.join(root, 'dist/getter.html'),
+            template: path.join(root, 'src/examples/getter/index.html'),
+            inject: 'body',
+            chunks: ['getter']
         })
     ]
 }

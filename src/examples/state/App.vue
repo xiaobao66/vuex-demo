@@ -14,16 +14,16 @@
     import {mapState} from 'vuex'
 
     export default {
-//        computed: {
-//            count() {
-//                return this.$store.state.count
-//            }
-//        },
         data() {
             return {
                 localCount: 1
             }
         },
+//        computed: {
+//            count() {
+//                return this.$store.state.count
+//            }
+//        },
         computed: mapState({
             count: state => state.count,
             countAlias: 'count',
