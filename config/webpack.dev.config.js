@@ -3,11 +3,17 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const root = path.resolve(__dirname, '..')
 
+const babelConfig = {
+    presets: ['env'],
+    plugins: ['transform-runtime', 'transform-object-rest-spread']
+}
+
 module.exports = {
     context: root,
     entry: {
         state: './src/examples/state/index.js',
-        getter: './src/examples/getter/index.js'
+        getter: './src/examples/getter/index.js',
+        mutation: './src/examples/mutation/index.js'
     },
     output: {
         path: path.join(root, 'dist'),
@@ -17,7 +23,15 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        js: {
+                            loader: 'babel-loader',
+                            options: babelConfig
+                        }
+                    }
+                }
             },
             {
                 test: /\.js$/,
@@ -25,10 +39,7 @@ module.exports = {
                     path.join(root, 'node_modules')
                 ],
                 loader: 'babel-loader',
-                options: {
-                    presets: ['env'],
-                    plugins: ['transform-runtime']
-                }
+                options: babelConfig
             }
         ]
     },
@@ -58,6 +69,12 @@ module.exports = {
             template: path.join(root, 'src/examples/getter/index.html'),
             inject: 'body',
             chunks: ['getter']
+        }),
+        new HtmlWebpackPlugin({
+            filename: path.join(root, 'dist/mutation.html'),
+            template: path.join(root, 'src/examples/mutation/index.html'),
+            inject: 'body',
+            chunks: ['mutation']
         })
     ]
 }
