@@ -14,7 +14,8 @@ module.exports = {
         state: './src/examples/state/index.js',
         getter: './src/examples/getter/index.js',
         mutation: './src/examples/mutation/index.js',
-        action: './src/examples/action/index.js'
+        action: './src/examples/action/index.js',
+        module: './src/examples/module/index.js'
     },
     output: {
         path: path.join(root, 'dist'),
@@ -82,6 +83,12 @@ module.exports = {
             template: path.join(root, 'src/examples/action/index.html'),
             inject: 'body',
             chunks: ['action']
+        }),
+        new HtmlWebpackPlugin({
+            filename: path.join(root, 'dist/module.html'),
+            template: path.join(root, 'src/examples/module/index.html'),
+            inject: 'body',
+            chunks: ['module']
         })
     ]
 }
